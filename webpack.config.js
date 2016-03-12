@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const NpmInstallPlugin = require('npm-install-webpack-plugin');
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
@@ -16,12 +17,26 @@ const common = {
   output: {
     path: PATHS.build,
     filename: 'bundle.js'
+  },
+  module: {
+    // JB_Doc: A loader is a transformator for source code to another source... like a compiler
+    loaders: [
+      {
+        // Test expects a RegExp! Note the slashes!
+        test: /\.css$/,
+        loaders: ['style', 'css'],
+        // Include accepts either a path or an array of paths.
+        // JB_Doc: If you dont do this, webpack will make it pay you with blood and performance pain
+        include: PATHS.app
+      }
+    ]
   }
 };
 
 // Default configuration
 if (TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
+    devtool: 'eval-source-map',
     devServer: {
       contentBase: PATHS.build,
       // Enable history API fallback so HTML5 History API based
@@ -44,7 +59,10 @@ if (TARGET === 'start' || !TARGET) {
       port: process.env.PORT
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new NpmInstallPlugin({
+        save: true // --save
+      })
     ]
   });
 }
