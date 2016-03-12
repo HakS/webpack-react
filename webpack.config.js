@@ -1,14 +1,16 @@
-import path from 'path';
-
+const path = require('path');
+const PATHS = {
+  app: path.join(__dirname, 'app'),
+  build: path.join(__dirname, 'build')
+};
 module.exports = {
-    entry: path.join(__dirname, 'app/main.js'),
-    output: {
-        path: __dirname,
-        filename: "bundle.js"
-    },
-    module: {
-        loaders: [
-            { test: /\.css$/, loader: "style!css" }
-        ]
-    }
+  // Entry accepts a path or an object of entries. We'll be using the
+  // latter form given it's convenient with more complex configurations.
+  entry: {
+    app: PATHS.app
+  },
+  output: {
+    path: PATHS.build,
+    filename: 'bundle.js'
+  }
 };
