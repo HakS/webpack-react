@@ -6,7 +6,7 @@ import NoteStore from '../stores/NoteStore';
 import LaneActions from '../actions/LaneActions';
 import Editable from './Editable.jsx';
 
-class Lane extends React.Component {
+export default class Lane extends React.Component {
   render() {
     const {lane, ...props} = this.props;
     // JB_Doc: this means:
