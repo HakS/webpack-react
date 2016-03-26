@@ -1,15 +1,24 @@
 {
   "name": "webpack_basics",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Basic example of ReactJS app handled by Webpack",
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "javascript",
+    "webpack",
+    "react",
+    "example",
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HakS/webpack-react"
+  },
+  "author": "Juan Barba <juan.barba.o@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.7.2",
     "babel-loader": "^6.2.4",
@@ -40,6 +49,8 @@
   },
   "dependencies": {
     "alt": "^0.18.4",
+    "alt-container": "^1.0.2",
+    "alt-utils": "^1.0.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"
   }
