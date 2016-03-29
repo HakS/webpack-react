@@ -6,9 +6,25 @@ import NoteStore from '../stores/NoteStore';
 import LaneActions from '../actions/LaneActions';
 import Editable from './Editable.jsx';
 
+import {DropTarget} from 'react-dnd';
+import ItemTypes from '../constants/itemTypes';
+
+const noteTarget = {
+  hover(targetProps, monitor) {
+    const targetId = targetProps.lane.id;
+    const sourceProps = monitor.getItem();
+    const sourceId = sourceProps.id;
+    console.log(`source: ${sourceId}, target: ${targetId}`);
+  }
+};
+
+@DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
+  connectDropTarget: connect.dropTarget()
+}))
+
 export default class Lane extends React.Component {
   render() {
-    const {lane, ...props} = this.props;
+    const {connectDropTarget, lane, ...props} = this.props;
     // JB_Doc: this means:
     // lane = this.props.lane
     // props = this.props (without the lane part)
@@ -21,7 +37,7 @@ export default class Lane extends React.Component {
     // JB_Doc: gotcha found: you cannot put comments inside jsx context
     // this little stupid bitch will try to print em all, the comment above was
     // inside the jsx part
-    return (
+    return connectDropTarget(
       <div {...props}>
         <div className="lane-header" onClick={this.activateLaneEdit}>
           <div className="lane-add-note">
